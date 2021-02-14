@@ -10,22 +10,28 @@ InputField.propTypes = {
     disabled: PropTypes.bool
 }
 
+InputField.defaultProps = {
+    label: '',
+    disabled: false
+}
+
 function InputField(props) {
     const { form, name, label, disabled } = props;
-    const { errors, formState } = form;
-    const hasError = formState.touched[name] && errors[name];
-    
+    const { errors } = form;
+    const hasError = errors[name] !== undefined;
     return (
         <Controller
             name={name}
             control={form.control}
             as={TextField}
 
+            margin="normal"
+            variant="outlined"
             fullWidth
             label={label}
             disabled={disabled}
 
-            error={!!hasError}
+            error={hasError}
             helperText={errors[name]?.message}
         />
     );

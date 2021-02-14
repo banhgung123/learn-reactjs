@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import { Redirect, Switch, NavLink, Link, Route } from 'react-router-dom';
-import TodoFeature from './features/Todo';
-import AlbumFeature from './features/Album';
-import NotFound from './components/NotFound';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import productApi from './api/productApi';
+import Header from './components/Header';
+import NotFound from './components/NotFound';
+import AlbumFeature from './features/Album';
+import CounterFeature from './features/Counter';
+import TodoFeature from './features/Todo';
 
 function App() {
     useEffect(() => {
@@ -11,7 +13,7 @@ function App() {
             const params = {
                 _limit: 10,
             };
-            const productList = await productApi.getAll();
+            const productList = await productApi.getAll(params);
             console.log(productList);
         };
 
@@ -20,34 +22,18 @@ function App() {
 
     return (
         <div className="App">
-            Header
-            {/* <p>
-        <Link to="/todos">Todos</Link>
-      </p>
-      <p>
-        <Link to="/albums">Albums</Link>
-      </p> */}
-            <p>
-                <NavLink to="/todos" activeClassName="active-menu">
-                    Todos
-                </NavLink>
-            </p>
-            <p>
-                <NavLink to="/albums" activeClassName="active-menu">
-                    Albums
-                </NavLink>
-            </p>
+            <Header />
+
             <Switch>
                 <Redirect from="/home" to="/" exact />
                 <Redirect from="/post-list/:postId" to="/posts/:postId" exact />
 
-                <Route path="/" component={TodoFeature} exact />
+                <Route path="/" component={CounterFeature} exact />
                 <Route path="/todos" component={TodoFeature} />
                 <Route path="/albums" component={AlbumFeature} />
 
                 <Route component={NotFound} />
             </Switch>
-            Footer
         </div>
     );
 }
