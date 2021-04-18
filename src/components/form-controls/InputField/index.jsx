@@ -17,24 +17,33 @@ InputField.defaultProps = {
 
 function InputField(props) {
     const { form, name, label, disabled } = props;
-    const { errors } = form;
-    const hasError = errors[name] !== undefined;
+    // const { formState } = form;
+    // const hasError = formState.errors[name] !== undefined;
     return (
         <Controller
             name={name}
             control={form.control}
-            as={TextField}
-
-            margin="normal"
-            variant="outlined"
-            fullWidth
-            label={label}
-            disabled={disabled}
-
-            error={hasError}
-            helperText={errors[name]?.message}
+            render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+                <TextField
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+                    label={label}
+                    disabled={disabled}
+                    error={invalid}
+                    helperText={error?.message}
+                    value={value}
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                />
+            )
+            }
         />
-    );
+    )
 }
 
 export default InputField;

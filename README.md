@@ -28,6 +28,8 @@ const filters = {
 
 CONFIG:
 
+FILTER_LIST
+
 -   id: number
 -   getLabel(filters): => string (func to build label)
 -   isActive: (filters) => true/false (func to check active or not)
@@ -35,3 +37,29 @@ CONFIG:
 -   isRemovable: boolean
 -   onRemove: func
 -   onToggle: func
+
+```
+DetailPage handleSubmit
+|__ AddToCartForm (form management)
+|  |__ QuantityField
+```
+
+/products/:productId --> ProductDescription
+/products/:productId/additional --> ProductAdditional
+/products/:productId/reviews --> ProductReviews
+
+DetailPage
+Click Chon Mua
+Open Mini Cart
+Go to Cart Page
+
+Cart
+
+-   showMiniCart: true / false
+    -cartItems --> item (product, quantity)
+
+Share tính toán phụ thuộc vào state có sẵn
+
+-   cartItemsCount
+-   cartTotal
+    --> createSelector()
